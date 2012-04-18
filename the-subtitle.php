@@ -38,7 +38,10 @@ function the_subtitle(){
 	global $post;
 	$post_id = $post->ID;
 	
-	echo get_post_meta($post_id, 'the_sub_subtitle', true);
+	$sub = get_post_meta($post_id, 'the_sub_subtitle', true);
+	if($sub != 'Subtitle'){
+		echo $sub;
+	}
 }
 
 function get_the_subtitle($post_id = null){
@@ -46,8 +49,11 @@ function get_the_subtitle($post_id = null){
 		global $post;
 		$post_id = $post->ID;
 	}
+	$sub = get_post_meta($post_id, 'the_sub_subtitle', true);
 	
-	return get_post_meta($post_id, 'the_sub_subtitle', true);
+	if($sub != 'Subtitle'){
+		return $sub;
+	}
 }
 
 
