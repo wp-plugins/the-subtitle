@@ -1,7 +1,7 @@
 <?php
 /**
 	Plugin Name: The Subtitle
-	Version: 1.0
+	Version: 1.2
 	Plugin URI: http://www.to-wonder.com/the-subtitle
 	Description: Allows a very simple and elegant subtitle in your posts, pages and custom post types
 	Author: Luc Princen

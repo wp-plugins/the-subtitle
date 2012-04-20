@@ -4,7 +4,7 @@ Donate link: http://www.to-wonder.com/the-subtitle
 Tags: subtitle, simple
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 1.0
+Stable tag: 1.2
 
 The subtitle allows you to easily add a subtitle to your posts and retrieve it in the loop
 in the same manner as the post title. By using the_subtitle() or get_the_subtitle().
@@ -26,6 +26,10 @@ You can also use the shortcode [the-subtitle] to display it.
 3. Add the 'the_subtitle()' tag to your theme
 
 == Changelog ==
+
+= 1.1 =
+Bugfixes for when the messages + screenoptions are displayed.
+
 
 = 1.0 =
 * Initial release.
