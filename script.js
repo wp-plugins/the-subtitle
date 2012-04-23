@@ -1,5 +1,4 @@
 jQuery(document).ready(function($){
-	
 	//if a message is displayed, change the top offset:
 	if($('#message').length > 0 || $('#screen-meta').is(':visible')){
 		calculateTopOffset();
@@ -28,8 +27,7 @@ jQuery(document).ready(function($){
 				}
 				
 			});
-		}
-	
+		}	
 	})
 	
 	function calculateTopOffset(){
@@ -42,6 +40,10 @@ jQuery(document).ready(function($){
 		}
 		var newX = amount * 55 + 100;
 		
+		if($('.update-nag').length > 0){
+			newX += $('.update-nag').height() + 10;
+		}
+		
 		if($('#screen-meta').is(':visible')){
 			newX += $('#screen-meta').height();
 		}
@@ -50,7 +52,6 @@ jQuery(document).ready(function($){
 		
 		$('.subtitle').css('top', newX+'px');
 	}
-
 	
 	//smart empty:
 	$('#the_subtitle').click(function(){
