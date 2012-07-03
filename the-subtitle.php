@@ -1,11 +1,12 @@
 <?php
 /**
 	Plugin Name: The Subtitle
-	Version: 1.2
+	Version: 1.4
 	Plugin URI: http://www.to-wonder.com/the-subtitle
 	Description: Allows a very simple and elegant subtitle in your posts, pages and custom post types
 	Author: Luc Princen
 	Author URI: http://www.to-wonder.com
+	Contributors: Kathy Darling, Joel Berghoff
 
     Copyright 2012 Luc Princen (email: Luc@to-wonder.com)
 
@@ -67,18 +68,34 @@ function the_sub_shortcode(){
 //
 
 
-add_action( 'admin_menu', 'the_sub_style_register' );
+add_action( 'admin_enqueue_scripts', 'the_sub_style_register' );
 add_action( 'edit_form_advanced', 'the_sub_form_register' );
 add_action( 'edit_page_form', 'the_sub_form_register' );
 add_action( 'save_post', 'the_sub_meta_save' );
 
 
 
-function the_sub_style_register(){
+function the_sub_style_register($hook) {
+ 
+	if( $hook != 'edit.php' && $hook != 'post.php' && $hook != 'post-new.php' ) 
+		return;
+		
 	//add the styles and scripts:
-	wp_enqueue_style('the_sub_style', the_sub_url().'/style.css');
-	wp_enqueue_script('the_sub_script', the_sub_url().'/script.js');
+	add_action('admin_head','the_sub_inline_style');
+	wp_enqueue_script('the_sub_script', the_sub_url().'/script.js', array('jquery'), '1.2', true);
 }
+
+function the_sub_inline_style(){ ?>
+	<style type="text/css">
+		#the_subtitle {
+			margin: 5px 0px 15px;
+			width: 100%;
+			padding: 3px 8px;
+			font-size: 1.3em;
+		}
+	</style>
+<?php }
+
 
 function the_sub_form_register(){
 	
@@ -109,7 +126,7 @@ function the_sub_meta_save($post_id){
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
  		return;
 
-	if ( !wp_verify_nonce( $_POST['the_sub_nonce'], plugin_basename( __FILE__ ) ) )
+	if (!isset($_POST['the_sub_nonce']) || !wp_verify_nonce( $_POST['the_sub_nonce'], plugin_basename( __FILE__ ) ) )
  		return;
 	
 	//update the postmeta accordingly:
